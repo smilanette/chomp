@@ -14,7 +14,7 @@ screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("using blit to draw tile")
 
 #load game font
-custom_font=pygame.font.Font("fonts/4MyLover.ttf", 120)
+custom_font=pygame.font.Font("fonts/4MyLover.ttf", 60)
 
 def draw_background(screen):
     #load our tiles from the assets folder
@@ -40,17 +40,29 @@ def draw_background(screen):
 
     #draw the text
     text=custom_font.render("Chomp", True, (255,29,0))
-    screen.blit(text, (screen_width/2-(text.get_width()/2),screen_height/2-(text.get_height()/2)))
+    screen.blit(text, (screen_width/2-(text.get_width()/2),(text.get_height()-40)))
 
 def draw_fishes(screen):
     #load our fish tiles onto surface
-    
+    puffer_fish=pygame.image.load("sprites/puffer_fish.png").convert()
+    orange_fish=pygame.image.load("sprites/orange_fish.png")
+    b_orange_fish = pygame.transform.flip(orange_fish, True, False)
+    orange_fish.set_colorkey((0,0,0))
+    puffer_fish.set_colorkey((0,0,0))
 
+    for _ in range(random.randint(1,5)):
+        x= random.randint(0, screen_width-(2*tile_size))
+        y= random.randint(80, screen_height-(2*tile_size))
+        screen.blit(b_orange_fish, (x,y))
+    for _ in range(random.randint(1,5)):
+        x = random.randint(0, screen_width - (2*tile_size))
+        y = random.randint(80, screen_height - (2*tile_size))
+        screen.blit(puffer_fish, (x,y))
 # Main loop
 running = True
 background = screen.copy()
 draw_background(background)
-
+draw_fishes(background)
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -60,5 +72,6 @@ while running:
     screen.blit(background, (0,0))
 
     pygame.display.flip()
+
 
 pygame.QUIT
