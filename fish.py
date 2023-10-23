@@ -1,6 +1,10 @@
 # creata a pygame sprite class for a fish
 
 import pygame
+import random
+
+MIN_SPEED=0.5
+MAX_SPEED=3
 
 class Fish(pygame.sprite.Sprite):
     def __init__ (self, x, y):
@@ -11,8 +15,12 @@ class Fish(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.x=x
         self.y=y
+        self.speed = random.uniform(MIN_SPEED, MAX_SPEED)
         self.rect.center = (x,y)
-
+    def update(self):
+        #update x position of fish
+        self.x-=self.speed
+        self.rect.x=self.x
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
