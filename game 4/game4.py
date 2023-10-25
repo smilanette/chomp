@@ -17,13 +17,13 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("using blit to draw tile")
 #load game font
-custom_font=pygame.font.Font("fonts/4MyLover.ttf", 60)
+custom_font=pygame.font.Font("../fonts/4MyLover.ttf", 60)
 
 def draw_background(screen):
     #load our tiles from the assets folder
-    water = pygame.image.load("sprites/water.png").convert()
-    sand = pygame.image.load("sprites/sand_top.png").convert()
-    seagrass = pygame.image.load("sprites/seagrass.png").convert()
+    water = pygame.image.load("../sprites/water.png").convert()
+    sand = pygame.image.load("../sprites/sand_top.png").convert()
+    seagrass = pygame.image.load("../sprites/seagrass.png").convert()
     #make pngs transparent
     sand.set_colorkey((0,0,0))
     seagrass.set_colorkey((0,0,0))
