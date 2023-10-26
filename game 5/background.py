@@ -27,5 +27,6 @@ def draw_background(screen):
         screen.blit(seagrass, (x,screen_height-(tile_size+20)))
 
     #draw the text
+    custom_font = pygame.font.Font("../fonts/4MyLover.ttf", 60)
     text=custom_font.render("Chomp", True, (255,29,0))
     screen.blit(text, (screen_width/2-(text.get_width()/2),(text.get_height()-40)))
