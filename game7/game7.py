@@ -3,9 +3,10 @@ import sys
 import random
 
 from fish import Fish, fishes
-from background import draw_background
+from background import draw_background, add_fish, add_enemies
 from game_parameters import *
 from player import Player
+from enemy import enemies, Enemy
 # Initialize pygame
 pygame.init()
 green_fish="../sprites/green_fish.png"
@@ -32,8 +33,10 @@ background =screen.copy()
 draw_background(background)
 
 #draw fish on screen
-for _ in range(5):
-    fishes.add(Fish(random.randint(screen_height, screen_width*2), random.randint(80, screen_height - (2*tile_size))))
+add_fish(5)
+
+# add enemies to the screen
+add_enemies(5)
 
 
 
@@ -62,6 +65,8 @@ while running:
     # update fish position
     fishes.update()
 
+    enemies.update()
+
     #update player fish
     player.update()
     result=pygame.sprite.spritecollide(player, fishes, True)
@@ -70,15 +75,25 @@ while running:
         for x in result:
             score=score+1
         for _ in range(len(result)):
-            fishes.add(Fish(random.randint(screen_width, screen_width + tile_size), random.randint(tile_size, 400)))
+            add_fish(1)
+            #fishes.add(Fish(random.randint(screen_width, screen_width + tile_size), random.randint(tile_size, 400)))
+    result = pygame.sprite.spritecollide(player, fishes, True)
+    if result:
+        for _ in range(len(result)):
+            add_enemies(1)
     # check if fish have left the screen
+
     for fish in fishes:
         if fish.rect.x < -fish.rect.width:
             fishes.remove(fish)
             fishes.add(Fish(random.randint(screen_width, screen_width + 50),random.randint(80, screen_height - (2 * tile_size))))
     fishes.draw(screen)
 
-
+    for fish in fishes:
+        if enemy.rect.x < -enemy.rect.width:
+            enemies.remove(enemy)
+            enemies.add(Fish(random.randint(screen_width, screen_width + 50),random.randint(80, screen_height - (2 * tile_size))))
+    fishes.draw(screen)
     score_text=score_font.render(f"Score: {score}", True, (255,0,0))
     screen.blit(score_text, (screen_width - score_text.get_width()-5, 10))
 
